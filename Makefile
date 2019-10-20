@@ -41,19 +41,16 @@ install-bin: bin/worker bin/ykfde bin/ykfde-cpio
 	$(INSTALL) -D -m0644 systemd/ykfde-2f.service $(DESTDIR)/usr/lib/systemd/system/ykfde-2f.service
 	$(INSTALL) -D -m0644 systemd/ykfde-worker.service $(DESTDIR)/usr/lib/systemd/system/ykfde-worker.service
 
-install-doc: README.html README-mkinitcpio.html README-dracut.html
-	$(INSTALL) -D -m0644 README.md $(DESTDIR)/usr/share/doc/ykfde/README.md
+install-doc: README.html
 	$(INSTALL) -D -m0644 README.html $(DESTDIR)/usr/share/doc/ykfde/README.html
-	$(INSTALL) -D -m0644 README-mkinitcpio.md $(DESTDIR)/usr/share/doc/ykfde/README-mkinitcpio.md
-	$(INSTALL) -D -m0644 README-mkinitcpio.html $(DESTDIR)/usr/share/doc/ykfde/README-mkinitcpio.html
-	$(INSTALL) -D -m0644 README-dracut.md $(DESTDIR)/usr/share/doc/ykfde/README-dracut.md
-	$(INSTALL) -D -m0644 README-dracut.html $(DESTDIR)/usr/share/doc/ykfde/README-dracut.html
 
-install-mkinitcpio: install-bin install-doc
+install-mkinitcpio: install-bin install-doc README-mkinitcpio.html 
+	$(INSTALL) -D -m0644 README-mkinitcpio.html $(DESTDIR)/usr/share/doc/ykfde/README-mkinitcpio.html
 	$(INSTALL) -D -m0644 mkinitcpio/ykfde $(DESTDIR)/usr/lib/initcpio/install/ykfde
 	$(INSTALL) -D -m0644 udev/20-ykfde.rules $(DESTDIR)/usr/lib/initcpio/udev/20-ykfde.rules
 
-install-dracut: install-bin install-doc
+install-dracut: install-bin install-doc README-dracut.html
+	$(INSTALL) -D -m0644 README-dracut.html $(DESTDIR)/usr/share/doc/ykfde/README-dracut.html
 	$(INSTALL) -D -m0755 dracut/module-setup.sh $(DESTDIR)/usr/lib/dracut/modules.d/90ykfde/module-setup.sh
 	$(INSTALL) -D -m0755 dracut/parse-mod.sh $(DESTDIR)/usr/lib/dracut/modules.d/90ykfde/parse-mod.sh
 	$(INSTALL) -D -m0755 dracut/ykfde.sh $(DESTDIR)/usr/lib/dracut/modules.d/90ykfde/ykfde.sh
