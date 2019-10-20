@@ -10,10 +10,10 @@ VERSION := 0.7.6
 
 .DELETE_ON_ERROR:
 
-all: bin/worker bin/ykfde bin/ykfde-cpio README.html README-mkinitcpio.html README-dracut.html
+all: bin/ykfde-worker bin/ykfde bin/ykfde-cpio README.html README-mkinitcpio.html README-dracut.html
 
-bin/worker: bin/worker.c config.h
-	$(MAKE) -C bin worker
+bin/ykfde-worker: bin/ykfde-worker.c config.h
+	$(MAKE) -C bin ykfde-worker
 
 bin/ykfde: bin/ykfde.c config.h version.h
 	$(MAKE) -C bin ykfde
@@ -33,7 +33,7 @@ version.h: $(wildcard .git/HEAD .git/index .git/refs/tags/*) Makefile
 
 install: install-mkinitcpio
 
-install-bin: bin/worker bin/ykfde bin/ykfde-cpio
+install-bin: bin/ykfde-worker bin/ykfde bin/ykfde-cpio
 	$(MAKE) -C bin install
 	$(INSTALL) -D -m0644 conf/ykfde.conf $(DESTDIR)/etc/ykfde.conf
 	$(INSTALL) -d -m0700 $(DESTDIR)/etc/ykfde.d/
